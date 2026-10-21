@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker_Simulator</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+
+        .container p {
+            margin: 6px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <script>
+        const text = [
+            "Initializing Hacking",
+            "Reading your files",
+            "Password Detected",
+            "Sending all files to the server",
+            "cleaning uppppp"
+        ];
+
+        const container = document.querySelector(".container");
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        function delay() {
+            const ms = (Math.floor(Math.random() * 4) + 1) * 1000;
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function addLine(message) {
+            const p = document.createElement("p");
+            p.textContent = "> " + message;
+            container.appendChild(p);
+            return p;                       
+        }
+
+        async function addDots(p) {
+            const base = p.textContent;
+            for (let round = 0; round < 2; round++) {
+                for (let i = 1; i <= 3; i++) {
+                    p.textContent = base + ".".repeat(i);
+                    await sleep(400);
+                }
+            }
+            p.textContent = base + "...";
+        }
+
+        async function run() {
+            for (const message of text) {
+                await delay();
+                const p = addLine(message);  // p ko variable mein pakdo
+                await addDots(p);            // FIX 3: dots chalao
+            }
+        }
+
+        run();
+    </script>
+</body>
+
+</html>
